@@ -1,0 +1,17 @@
+{
+	# Global options
+	email {$ACME_EMAIL}
+	# Optional: set acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+{$APP_DOMAIN} {
+	encode zstd gzip
+	# API + Swagger
+	reverse_proxy api:8080
+}
+
+minio.{$APP_DOMAIN} {
+	encode zstd gzip
+	# MinIO Console (optional)
+	reverse_proxy minio:9001
+}
